@@ -137,9 +137,7 @@ func flags() error {
 	if err := workerSettings.Queues.Set(workerSettings.QueuesString); err != nil {
 		return err
 	}
-	if err := workerSettings.Interval.SetFloat(workerSettings.IntervalFloat); err != nil {
-		return err
-	}
+	workerSettings.Interval = intervalFlag(workerSettings.IntervalFloat * 1e9)
 	workerSettings.IsStrict = strings.IndexRune(workerSettings.QueuesString, '=') == -1
 
 	if !workerSettings.UseNumber {
